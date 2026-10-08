@@ -1,0 +1,48 @@
+<div class="modal-backdrop" data-modal-backdrop>
+  <section
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="assignment-modal-title"
+  >
+    <div class="modal-head">
+      <h2 id="assignment-modal-title">Create an assignment</h2>
+      <button class="close" data-close aria-label="Close">×</button>
+    </div>
+    <form id="assignment-form">
+      <div class="form-group">
+        <label for="assignment-course">Course</label
+        ><select id="assignment-course" name="courseId" required></select>
+      </div>
+      <div class="form-group">
+        <label for="assignment-title">Assignment title</label
+        ><input
+          id="assignment-title"
+          name="title"
+          required
+          maxlength="100"
+          placeholder="e.g. Build a responsive landing page"
+        />
+      </div>
+      <div class="form-group">
+        <label for="assignment-due">Due date</label
+        ><input id="assignment-due" name="due" type="date" required />
+      </div>
+      <div class="form-group">
+        <label for="assignment-points">Points</label
+        ><input
+          id="assignment-points"
+          name="points"
+          type="number"
+          min="1"
+          max="1000"
+          value="20"
+          required
+        />
+      </div>
+      <button class="btn btn-primary" style="width: 100%">
+        Create assignment
+      </button>
+    </form>
+  </section>
+</div>

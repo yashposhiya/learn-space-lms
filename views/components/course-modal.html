@@ -1,0 +1,55 @@
+<div class="modal-backdrop" data-modal-backdrop>
+  <section
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="course-modal-title"
+  >
+    <div class="modal-head">
+      <h2 id="course-modal-title">Add a course</h2>
+      <button class="close" data-close aria-label="Close">×</button>
+    </div>
+    <form id="course-form">
+      <div class="form-group">
+        <label for="course-title">Course title</label
+        ><input
+          id="course-title"
+          name="title"
+          required
+          placeholder="e.g. Database Concepts"
+        />
+      </div>
+      <div class="form-group">
+        <label for="course-description">Description</label
+        ><textarea
+          id="course-description"
+          name="description"
+          required
+          rows="3"
+          placeholder="What will students learn?"
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="course-instructor">Instructor</label
+        ><input
+          id="course-instructor"
+          name="instructor"
+          required
+          placeholder="Faculty name"
+        />
+      </div>
+      <div class="form-group">
+        <label for="course-lessons">Number of lessons</label
+        ><input
+          id="course-lessons"
+          name="lessons"
+          type="number"
+          min="1"
+          value="8"
+          required
+        />
+      </div>
+      <button class="btn btn-primary" style="width: 100%">Add course</button>
+    </form>
+  </section>
+</div>

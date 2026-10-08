@@ -1,0 +1,60 @@
+<div class="app-layout">
+  <aside class="sidebar">
+    <a class="brand" href="#dashboard"
+      ><span class="brand-mark">L</span> LearnSpace</a
+    >
+    <nav>
+      <button class="side-link" data-route="dashboard" data-nav="dashboard">
+        🏠 Dashboard</button
+      ><button
+        class="side-link"
+        data-route="courses"
+        data-nav="courses"
+        data-student-label
+      >
+        📚 My courses</button
+      ><button
+        class="side-link hidden"
+        data-route="courses"
+        data-nav="courses"
+        data-admin-label
+      >
+        📚 Manage courses</button
+      ><button
+        class="side-link"
+        data-route="assignments"
+        data-nav="assignments"
+        data-student-label
+      >
+        📝 Assignments</button
+      ><button
+        class="side-link hidden"
+        data-route="assignments"
+        data-nav="assignments"
+        data-admin-label
+      >
+        📝 Submissions</button
+      ><button
+        class="side-link hidden"
+        data-route="students"
+        data-nav="students"
+        data-admin-only
+      >
+        👥 Students
+      </button>
+    </nav>
+    <div class="sidebar-footer">
+      College LMS · SDC Project<br />Built with HTML, CSS & JavaScript
+    </div>
+  </aside>
+  <main class="main-content">
+    <div class="content-head">
+      <h1 data-page-title>Dashboard</h1>
+      <div class="user-pill">
+        <span data-user-name></span><span class="avatar" data-user-avatar></span
+        ><button class="btn btn-ghost" data-logout>Logout</button>
+      </div>
+    </div>
+    <div data-view-outlet></div>
+  </main>
+</div>

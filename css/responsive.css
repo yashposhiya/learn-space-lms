@@ -1,0 +1,37 @@
+@media (max-width: 780px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 40px;
+  }
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+  .app-layout {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    padding: 12px 15px;
+  }
+  .sidebar .brand {
+    margin: 0 0 12px;
+  }
+  .side-link {
+    display: inline-flex;
+    width: auto;
+    margin-right: 3px;
+    padding: 9px 11px;
+    font-size: 0.82rem;
+  }
+  .sidebar-footer {
+    display: none;
+  }
+  .main-content {
+    padding: 22px 4%;
+  }
+  .dashboard-stats {
+    grid-template-columns: 1fr;
+  }
+  .content-head h1 {
+    font-size: 1.55rem;
+  }
+}

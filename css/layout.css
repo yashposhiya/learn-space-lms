@@ -1,0 +1,71 @@
+.app-layout {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 245px 1fr;
+}
+.sidebar {
+  padding: 25px 16px;
+  color: #dbeafe;
+  background: var(--navy);
+}
+.sidebar .brand {
+  margin: 0 10px 45px;
+  color: white;
+}
+.side-link {
+  width: 100%;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  margin: 4px 0;
+  border: 0;
+  border-radius: 9px;
+  color: #bfdbfe;
+  background: transparent;
+  text-align: left;
+}
+.side-link:hover,
+.side-link.active {
+  color: white;
+  background: rgba(255, 255, 255, 0.13);
+}
+.sidebar-footer {
+  position: fixed;
+  bottom: 22px;
+  width: 212px;
+  color: #93a8c5;
+  font-size: 0.78rem;
+}
+.main-content {
+  min-width: 0;
+  padding: 28px 5%;
+}
+.content-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 26px;
+}
+.content-head h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+.user-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.avatar {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: white;
+  background: var(--blue);
+  font-weight: 800;
+}
