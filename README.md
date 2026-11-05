@@ -1,5 +1,38 @@
 # LearnSpace — Learning Management System
 
+## React implementation
+
+The active application is now a React + Vite single-page application. Run it with:
+
+```bash
+npm install
+npm run dev
+```
+
+The React app provides separate workspaces for:
+
+- **Students:** enroll in courses, track progress, and view assignments.
+- **Teachers:** view their assigned courses and teaching assignments.
+- **Admins:** oversee courses, users, and platform activity.
+
+Demo accounts:
+
+| Role | Email | Password |
+| --- | --- | --- |
+| Admin | `admin@college.edu` | `admin123` |
+| Teacher | `teacher@college.edu` | `teacher123` |
+
+New signups are created as student accounts. Data is persisted through the
+LocalStorage service in `src/main.jsx` and is intentionally suitable for a
+frontend demonstration rather than production authentication.
+
+Production verification:
+
+```bash
+npm test
+npm run build
+```
+
 LearnSpace is a browser-based Learning Management System (LMS) made as a college frontend project. It gives students one place to discover courses, enroll, record learning progress, and submit assignment file names. Administrators can manage the course catalogue and review student activity.
 
 ## Problem statement
@@ -15,7 +48,7 @@ Students may have to find course information and keep track of learning activity
 - Let administrators add and remove courses, view registered students, and review submissions.
 
 ## Modules and features
-
+ p 
 ### Student module
 
 - Create a student account and log in.
@@ -41,12 +74,21 @@ Students may have to find course information and keep track of learning activity
 - **LocalStorage:** demo accounts, passwords, session, courses, enrollments, and assignment submission records.
 - **CSS Grid and Flexbox:** responsive page, dashboard, card, and form layouts.
 
-There is no JavaScript framework, package manager, build step, backend, or database. The `index.html` file loads the app entry point. JavaScript fetches the HTML view templates and updates their DOM elements with data.
+There is no JavaScript framework, package manager, build step, backend, or database. Each screen is a regular HTML page (`index.html`, `login.html`, `dashboard.html`, and so on), and links use normal page navigation. Native JavaScript ES modules initialize the page they are loaded on and update its data and interactive elements; they do not fetch HTML templates or implement a client-side router.
 
 ## Project structure
 
 ```text
 index.html                 Main page shell
+login.html                 Student/admin login
+signup.html                Student registration
+forgot-password.html      Password reset
+dashboard.html             Student dashboard
+courses.html               Student enrolled courses
+admin.html                 Admin course management
+students.html              Admin student directory
+assignments.html            Student assignments
+submissions.html            Admin assignment review
 styles.css                 Imports the CSS files
 css/
   base.css                 Design tokens and shared element styles
@@ -68,11 +110,11 @@ views/
   assignments-admin.html   Admin submissions template
   components/              Shared authenticated shell and course form
 js/
-  app.js                   Startup, hash navigation, and event handling
+  app.js                   Page initialization and shared event handling
   data/config.js           LocalStorage keys and starter records
   services/
     storage.js             LocalStorage access and initialization
-    views.js               Loads HTML views and mounts the app shell
+    views.js               Sets up the static authenticated page shell
   components/
     course-card.js         Builds reusable course cards with DOM methods
   modules/
@@ -86,7 +128,7 @@ js/
 
 ## Run locally
 
-Because the app uses native JavaScript modules and fetches separate HTML templates, serve the folder over HTTP instead of opening `index.html` directly.
+Because the app uses native JavaScript modules, serve the folder over HTTP instead of opening `index.html` directly.
 
 For example, with Python already available on your computer, open a terminal in the project folder and run:
 
@@ -107,13 +149,13 @@ The app seeds this administrator and the starter courses the first time it runs.
 
 The app stores its demonstration data in the browser under these keys:
 
-| Key | Stored data |
-| --- | --- |
-| `learnspace_users` | Demo student and admin accounts |
-| `learnspace_session` | Currently signed-in user |
-| `learnspace_courses` | Course catalogue |
-| `learnspace_enrollments` | Student course enrollment and progress |
-| `learnspace_assignments` | Starter assignment list |
+| Key                      | Stored data                               |
+| ------------------------ | ----------------------------------------- |
+| `learnspace_users`       | Demo student and admin accounts           |
+| `learnspace_session`     | Currently signed-in user                  |
+| `learnspace_courses`     | Course catalogue                          |
+| `learnspace_enrollments` | Student course enrollment and progress    |
+| `learnspace_assignments` | Starter assignment list                   |
 | `learnspace_submissions` | Submitted assignment filenames and status |
 
 Clear the site's LocalStorage from browser developer tools to reset the demo data.
