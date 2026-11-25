@@ -4,7 +4,10 @@ let nextSequence = 0;
 const assignmentFiles = new Map();
 const submissionFiles = new Map();
 
-export function initializeAssignmentStore(initialAssignments = [], initialSubmissions = []) {
+export function initializeAssignmentStore(
+  initialAssignments = [],
+  initialSubmissions = [],
+) {
   assignments = [...initialAssignments];
   submissions = [...initialSubmissions];
   nextSequence = 0;
@@ -20,7 +23,14 @@ export function getSubmissions() {
   return submissions;
 }
 
-export function createAssignment({ courseId, title, due, points, teacherId, document }) {
+export function createAssignment({
+  courseId,
+  title,
+  due,
+  points,
+  teacherId,
+  document,
+}) {
   const assignment = {
     id: createId("assignment"),
     courseId,
@@ -37,7 +47,8 @@ export function createAssignment({ courseId, title, due, points, teacherId, docu
 
 export function saveSubmission({ assignmentId, userId, userName, file }) {
   const existing = submissions.find(
-    (submission) => submission.assignmentId === assignmentId && submission.userId === userId,
+    (submission) =>
+      submission.assignmentId === assignmentId && submission.userId === userId,
   );
   const id = existing?.id || createId("submission");
   const submission = {
@@ -50,16 +61,16 @@ export function saveSubmission({ assignmentId, userId, userName, file }) {
     grade: null,
   };
   submissions = existing
-    ? submissions.map((item) => item.id === id ? submission : item)
+    ? submissions.map((item) => (item.id === id ? submission : item))
     : [...submissions, submission];
   submissionFiles.set(id, file);
   return submissions;
 }
 
 export function gradeSubmission(submissionId, grade) {
-  submissions = submissions.map((submission) => (
-    submission.id === submissionId ? { ...submission, grade } : submission
-  ));
+  submissions = submissions.map((submission) =>
+    submission.id === submissionId ? { ...submission, grade } : submission,
+  );
   return submissions;
 }
 

@@ -20,10 +20,17 @@ export function write(key, value) {
 
 export function seedStorage(users, courses) {
   const storedUsers = read(STORAGE_KEYS.users, []);
-  const missingUsers = users.filter((seedUser) => !storedUsers.some((user) => user.id === seedUser.id));
-  if (missingUsers.length) write(STORAGE_KEYS.users, [...storedUsers, ...missingUsers]);
-  else if (!localStorage.getItem(STORAGE_KEYS.users)) write(STORAGE_KEYS.users, users);
-  if (!localStorage.getItem(STORAGE_KEYS.courses)) write(STORAGE_KEYS.courses, courses);
-  if (!localStorage.getItem(STORAGE_KEYS.enrollments)) write(STORAGE_KEYS.enrollments, []);
-  if (!localStorage.getItem(STORAGE_KEYS.teacherStudents)) write(STORAGE_KEYS.teacherStudents, []);
+  const missingUsers = users.filter(
+    (seedUser) => !storedUsers.some((user) => user.id === seedUser.id),
+  );
+  if (missingUsers.length)
+    write(STORAGE_KEYS.users, [...storedUsers, ...missingUsers]);
+  else if (!localStorage.getItem(STORAGE_KEYS.users))
+    write(STORAGE_KEYS.users, users);
+  if (!localStorage.getItem(STORAGE_KEYS.courses))
+    write(STORAGE_KEYS.courses, courses);
+  if (!localStorage.getItem(STORAGE_KEYS.enrollments))
+    write(STORAGE_KEYS.enrollments, []);
+  if (!localStorage.getItem(STORAGE_KEYS.teacherStudents))
+    write(STORAGE_KEYS.teacherStudents, []);
 }

@@ -36,7 +36,9 @@ export function getTheme() {
 }
 
 export function applyTheme(themeId) {
-  const theme = THEMES.some((item) => item.id === themeId) ? themeId : THEMES[0].id;
+  const theme = THEMES.some((item) => item.id === themeId)
+    ? themeId
+    : THEMES[0].id;
   document.documentElement.dataset.theme = theme;
   localStorage.setItem(THEME_KEY, theme);
   return theme;

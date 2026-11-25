@@ -23,28 +23,74 @@ applyTheme(getTheme());
 function ProtectedRoute({ children, roles }) {
   const { user } = useAuth();
   if (!user) return <Navigate to="/login" replace />;
-  if (roles && !roles.includes(user.role)) return <Navigate to="/dashboard" replace />;
+  if (roles && !roles.includes(user.role))
+    return <Navigate to="/dashboard" replace />;
   return children;
 }
 
 function Workspace({ children, roles }) {
-  return <ProtectedRoute roles={roles}><AppLayout>{children}</AppLayout></ProtectedRoute>;
+  return (
+    <ProtectedRoute roles={roles}>
+      <AppLayout>{children}</AppLayout>
+    </ProtectedRoute>
+  );
 }
 
 function App() {
-  return <Routes>
-    <Route path="/" element={<LandingPage />} />
-    <Route path="/login" element={<AuthPage mode="login" />} />
-    <Route path="/signup" element={<AuthPage mode="signup" />} />
-    <Route path="/dashboard" element={<Workspace><DashboardPage /></Workspace>} />
-    <Route path="/courses" element={<Workspace><CoursesPage /></Workspace>} />
-    <Route path="/assignments" element={<Workspace><AssignmentsPage /></Workspace>} />
-    <Route path="/assignments/:assignmentId/submissions" element={<Workspace roles={["teacher"]}><AssignmentSubmissionsPage /></Workspace>} />
-    <Route path="/users" element={<Workspace roles={["admin"]}><AdminPeoplePage /></Workspace>} />
-    <Route path="*" element={<Navigate to="/" replace />} />
-  </Routes>;
+  return (
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/login" element={<AuthPage mode="login" />} />
+      <Route path="/signup" element={<AuthPage mode="signup" />} />
+      <Route
+        path="/dashboard"
+        element={
+          <Workspace>
+            <DashboardPage />
+          </Workspace>
+        }
+      />
+      <Route
+        path="/courses"
+        element={
+          <Workspace>
+            <CoursesPage />
+          </Workspace>
+        }
+      />
+      <Route
+        path="/assignments"
+        element={
+          <Workspace>
+            <AssignmentsPage />
+          </Workspace>
+        }
+      />
+      <Route
+        path="/assignments/:assignmentId/submissions"
+        element={
+          <Workspace roles={["teacher"]}>
+            <AssignmentSubmissionsPage />
+          </Workspace>
+        }
+      />
+      <Route
+        path="/users"
+        element={
+          <Workspace roles={["admin"]}>
+            <AdminPeoplePage />
+          </Workspace>
+        }
+      />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  );
 }
 
 createRoot(document.getElementById("root")).render(
-  <BrowserRouter><AuthProvider><App /></AuthProvider></BrowserRouter>,
+  <BrowserRouter>
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  </BrowserRouter>,
 );

@@ -17,9 +17,9 @@ The React app provides separate workspaces for:
 
 Demo accounts:
 
-| Role | Email | Password |
-| --- | --- | --- |
-| Admin | `admin@college.edu` | `admin123` |
+| Role    | Email                 | Password     |
+| ------- | --------------------- | ------------ |
+| Admin   | `admin@college.edu`   | `admin123`   |
 | Teacher | `teacher@college.edu` | `teacher123` |
 
 New signups are created as student accounts. Account and course data use
@@ -49,7 +49,9 @@ Students may have to find course information and keep track of learning activity
 - Let administrators add and remove courses, view registered students, and review submissions.
 
 ## Modules and features
- p 
+
+p
+
 ### Student module
 
 - Create a student account and log in.
@@ -156,12 +158,12 @@ The app seeds this administrator and the starter courses the first time it runs.
 
 The app stores its demonstration data in the browser under these keys:
 
-| Key                      | Stored data                               |
-| ------------------------ | ----------------------------------------- |
-| `learnspace_users`       | Demo student and admin accounts           |
-| `learnspace_session`     | Currently signed-in user                  |
-| `learnspace_courses`     | Course catalogue                          |
-| `learnspace_enrollments` | Student course enrollment and progress    |
+| Key                      | Stored data                            |
+| ------------------------ | -------------------------------------- |
+| `learnspace_users`       | Demo student and admin accounts        |
+| `learnspace_session`     | Currently signed-in user               |
+| `learnspace_courses`     | Course catalogue                       |
+| `learnspace_enrollments` | Student course enrollment and progress |
 
 Assignment records, attached documents, and submission files are not stored in
 LocalStorage; they are held in memory and reset when the app is refreshed or
