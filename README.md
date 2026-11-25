@@ -12,7 +12,7 @@ npm run dev
 The React app provides separate workspaces for:
 
 - **Students:** enroll in courses, track progress, and view assignments.
-- **Teachers:** view their assigned courses and teaching assignments.
+- **Teachers:** view their assigned courses and create assignments with optional documents.
 - **Admins:** oversee courses, users, and platform activity.
 
 Demo accounts:
@@ -22,9 +22,10 @@ Demo accounts:
 | Admin | `admin@college.edu` | `admin123` |
 | Teacher | `teacher@college.edu` | `teacher123` |
 
-New signups are created as student accounts. Data is persisted through the
-LocalStorage service in `src/main.jsx` and is intentionally suitable for a
-frontend demonstration rather than production authentication.
+New signups are created as student accounts. Account and course data use
+LocalStorage for this frontend demonstration. Assignment records, attached
+documents, and submitted files are kept in page memory only and are cleared
+when the app is refreshed or closed.
 
 Production verification:
 
@@ -56,22 +57,28 @@ Students may have to find course information and keep track of learning activity
 - Browse the course catalogue and enroll in a course.
 - Mark lessons complete to update progress in 25% steps.
 - View enrolled courses and progress from the dashboard.
-- Select an assignment file and submit its filename for the demo record.
+- Download assignment documents and submit files for the teacher to review. Assignment records and files stay in memory only for the current app session.
 
 ### Admin module
 
 - Sign in using the seeded demo administrator account.
 - Add and remove courses from the catalogue.
-- Create course assignments with a title, due date, and points.
 - View registered student accounts and their enrollment counts.
 - Review student assignment submission records.
+
+### Teacher module
+
+- View courses assigned to the teacher.
+- Create assignments for those courses, optionally attaching a document for students.
+- Review student submissions and download submitted files.
 
 ## Technology and implementation
 
 - **HTML:** the page shell and individual screen templates under `views/`.
 - **CSS:** shared design tokens, layout, feature styles, and responsive rules under `css/`, linked through `styles.css`.
 - **JavaScript:** native browser ES modules under `js/` for routing, validation, rendering DOM updates, and feature logic.
-- **LocalStorage:** demo accounts, passwords, session, courses, enrollments, and assignment submission records.
+- **LocalStorage:** demo accounts, passwords, session, courses, and enrollments.
+- **In-memory assignment store:** assignment records, attached documents, and student submission files; refreshing or closing the app clears these session-only records and files.
 - **CSS Grid and Flexbox:** responsive page, dashboard, card, and form layouts.
 
 There is no JavaScript framework, package manager, build step, backend, or database. Each screen is a regular HTML page (`index.html`, `login.html`, `dashboard.html`, and so on), and links use normal page navigation. Native JavaScript ES modules initialize the page they are loaded on and update its data and interactive elements; they do not fetch HTML templates or implement a client-side router.
@@ -155,15 +162,16 @@ The app stores its demonstration data in the browser under these keys:
 | `learnspace_session`     | Currently signed-in user                  |
 | `learnspace_courses`     | Course catalogue                          |
 | `learnspace_enrollments` | Student course enrollment and progress    |
-| `learnspace_assignments` | Starter assignment list                   |
-| `learnspace_submissions` | Submitted assignment filenames and status |
 
-Clear the site's LocalStorage from browser developer tools to reset the demo data.
+Assignment records, attached documents, and submission files are not stored in
+LocalStorage; they are held in memory and reset when the app is refreshed or
+closed. Clear the site's LocalStorage from browser developer tools to reset the
+persistent demo account and course data.
 
 ## Known limitations and future scope
 
 - Passwords are stored in LocalStorage without secure hashing. Password reset is direct and does not verify email ownership. These choices are for demonstration only; real authentication needs a secure backend.
-- Assignment submission records the selected filename only. It does not upload or retain file contents.
+- Assignment documents and student submissions are held in browser memory only. They are not uploaded to a server and are lost when the app is refreshed or closed.
 - Lesson completion is simulated with a progress button; the project does not contain course lessons or online quizzes.
 - Discussion forums, certificates, video lessons, notifications, instructor tools, and backend/database integration are future enhancements.
 
@@ -172,7 +180,7 @@ Clear the site's LocalStorage from browser developer tools to reset the demo dat
 1. Open the landing page and explain the LMS problem and purpose.
 2. Create a student account, sign in, and enroll in a course.
 3. Mark a lesson complete and show progress on the dashboard.
-4. Submit an assignment file and explain that only its filename is stored.
+4. As a teacher, create an assignment with an optional document. As a student, download the document and submit a file; explain that assignment data and files are held only in page memory and are cleared on refresh.
 5. Log out and sign in with the demo administrator account.
 6. Add or remove a course, open Students, and review Submissions.
 7. Demonstrate Forgot password from the login page and explain its LocalStorage-only limitation.

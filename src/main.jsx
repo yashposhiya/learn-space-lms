@@ -7,10 +7,12 @@ import AdminPeoplePage from "./features/admin/AdminPages.jsx";
 import { AssignmentsPage, CoursesPage, DashboardPage } from "./features/student/StudentPages.jsx";
 import { seedAssignments, seedCourses, seedUsers } from "./data/seedData.js";
 import { seedStorage } from "./services/storage.js";
+import { initializeAssignmentStore } from "./services/assignmentStore.js";
 import { applyTheme, getTheme } from "./services/theme.js";
 import "./styles.css";
 
-seedStorage(seedUsers, seedCourses, seedAssignments);
+seedStorage(seedUsers, seedCourses);
+initializeAssignmentStore(seedAssignments);
 applyTheme(getTheme());
 
 function ProtectedRoute({ children, roles }) {
