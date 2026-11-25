@@ -4,7 +4,12 @@ import AppLayout from "./components/AppLayout.jsx";
 import { AuthProvider, useAuth } from "./features/auth/AuthContext.jsx";
 import { AuthPage, LandingPage } from "./features/auth/AuthPages.jsx";
 import AdminPeoplePage from "./features/admin/AdminPages.jsx";
-import { AssignmentsPage, CoursesPage, DashboardPage } from "./features/student/StudentPages.jsx";
+import {
+  AssignmentSubmissionsPage,
+  AssignmentsPage,
+  CoursesPage,
+  DashboardPage,
+} from "./features/student/StudentPages.jsx";
 import { seedAssignments, seedCourses, seedUsers } from "./data/seedData.js";
 import { seedStorage } from "./services/storage.js";
 import { initializeAssignmentStore } from "./services/assignmentStore.js";
@@ -34,6 +39,7 @@ function App() {
     <Route path="/dashboard" element={<Workspace><DashboardPage /></Workspace>} />
     <Route path="/courses" element={<Workspace><CoursesPage /></Workspace>} />
     <Route path="/assignments" element={<Workspace><AssignmentsPage /></Workspace>} />
+    <Route path="/assignments/:assignmentId/submissions" element={<Workspace roles={["teacher"]}><AssignmentSubmissionsPage /></Workspace>} />
     <Route path="/users" element={<Workspace roles={["admin"]}><AdminPeoplePage /></Workspace>} />
     <Route path="*" element={<Navigate to="/" replace />} />
   </Routes>;

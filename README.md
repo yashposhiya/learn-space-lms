@@ -11,7 +11,7 @@ npm run dev
 
 The React app provides separate workspaces for:
 
-- **Students:** enroll in courses, track progress, and view assignments.
+- **Students:** enroll in courses, track progress, submit assignments, and view grades.
 - **Teachers:** view their assigned courses and create assignments with optional documents.
 - **Admins:** oversee courses, users, and platform activity.
 
@@ -70,7 +70,7 @@ Students may have to find course information and keep track of learning activity
 
 - View courses assigned to the teacher.
 - Create assignments for those courses, optionally attaching a document for students.
-- Review student submissions and download submitted files.
+- Open an assignment's submission table, preview or download student files, and grade work out of the assignment's total points.
 
 ## Technology and implementation
 

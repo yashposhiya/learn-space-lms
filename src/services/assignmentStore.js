@@ -47,11 +47,19 @@ export function saveSubmission({ assignmentId, userId, userName, file }) {
     userName,
     fileName: file.name,
     submittedAt: new Date().toISOString(),
+    grade: null,
   };
   submissions = existing
     ? submissions.map((item) => item.id === id ? submission : item)
     : [...submissions, submission];
   submissionFiles.set(id, file);
+  return submissions;
+}
+
+export function gradeSubmission(submissionId, grade) {
+  submissions = submissions.map((submission) => (
+    submission.id === submissionId ? { ...submission, grade } : submission
+  ));
   return submissions;
 }
 
