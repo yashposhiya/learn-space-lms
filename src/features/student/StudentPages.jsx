@@ -18,14 +18,16 @@ export function DashboardPage() {
   const { user } = useAuth();
   const courses = read(STORAGE_KEYS.courses, []);
   const visible = user.role === "teacher" ? courses.filter((course) => course.teacherId === user.id) : courses;
-  const enrollments = read(STORAGE_KEYS.enrollments, []).filter((item) => item.userId === user.id);
-  const learnerCount = read(STORAGE_KEYS.enrollments, []).filter((item) => visible.some((course) => course.id === item.courseId)).length;
-  return <><section className="welcome"><span className="eyebrow">{user.role === "admin" ? "Control center" : "Keep moving forward"}</span><h1>{user.role === "admin" ? "Manage the learning community." : user.role === "teacher" ? "Create meaningful learning experiences." : "Your next achievement starts here."}</h1><p>Pick up where you left off and make progress today.</p></section><div className="stats"><Stat label={user.role === "student" ? "Enrolled courses" : "Active courses"} value={user.role === "student" ? enrollments.length : visible.length} /><Stat label={user.role === "teacher" ? "Your learners" : user.role === "admin" ? "Registered users" : "Completed courses"} value={user.role === "teacher" ? learnerCount : user.role === "admin" ? read(STORAGE_KEYS.users, []).length : enrollments.filter((item) => item.progress === 100).length} /><Stat label="Assignments" value={getAssignments().filter((item) => visible.some((course) => course.id === item.courseId)).length} /></div><div className="section-heading"><h2>{user.role === "teacher" ? "Courses you teach" : "Explore courses"}</h2><NavLink className="text-link" to="/courses">View all →</NavLink></div><div className="card-grid">{visible.slice(0, 3).map((course) => <CourseCard key={course.id} course={course} />)}</div></>;
+  const [allEnrollments, setAllEnrollments] = useState(() => read(STORAGE_KEYS.enrollments, []));
+  const enrollments = allEnrollments.filter((item) => item.userId === user.id);
+  const learnerCount = allEnrollments.filter((item) => visible.some((course) => course.id === item.courseId)).length;
+  return <><section className="welcome"><span className="eyebrow">{user.role === "admin" ? "Control center" : "Keep moving forward"}</span><h1>{user.role === "admin" ? "Manage the learning community." : user.role === "teacher" ? "Create meaningful learning experiences." : "Your next achievement starts here."}</h1><p>Pick up where you left off and make progress today.</p></section><div className="stats"><Stat label={user.role === "student" ? "Enrolled courses" : "Active courses"} value={user.role === "student" ? enrollments.length : visible.length} /><Stat label={user.role === "teacher" ? "Your learners" : user.role === "admin" ? "Registered users" : "Completed courses"} value={user.role === "teacher" ? learnerCount : user.role === "admin" ? read(STORAGE_KEYS.users, []).length : enrollments.filter((item) => item.progress === 100).length} /><Stat label="Assignments" value={getAssignments().filter((item) => visible.some((course) => course.id === item.courseId)).length} /></div><div className="section-heading"><h2>{user.role === "teacher" ? "Courses you teach" : "Explore courses"}</h2><NavLink className="text-link" to="/courses">View all →</NavLink></div><div className="card-grid">{visible.slice(0, 3).map((course) => <CourseCard key={course.id} course={course} enrollments={allEnrollments} onEnrollmentsChange={setAllEnrollments} />)}</div></>;
 }
 
 export function CoursesPage() {
   const { user } = useAuth();
   const [courses, setCourses] = useState(() => read(STORAGE_KEYS.courses, []));
+  const [enrollments, setEnrollments] = useState(() => read(STORAGE_KEYS.enrollments, []));
   const [modalOpen, setModalOpen] = useState(false);
   const teachers = read(STORAGE_KEYS.users, []).filter((account) => account.role === "teacher");
   const visibleCourses = courses.filter((course) => user.role !== "teacher" || course.teacherId === user.id);
@@ -39,7 +41,7 @@ export function CoursesPage() {
     setCourses(next);
     setModalOpen(false);
   };
-  return <><div className="section-heading"><div><span className="eyebrow">Learning content</span><h1>{user.role === "admin" ? "Manage courses" : user.role === "teacher" ? "Your courses" : "Course catalogue"}</h1></div>{user.role === "admin" && <Button onClick={() => setModalOpen(true)}>+ Add course</Button>}</div><div className="card-grid">{visibleCourses.map((course) => <CourseCard key={course.id} course={course} />)}</div>{modalOpen && <CourseModal teachers={teachers} onClose={() => setModalOpen(false)} onSubmit={createCourse} />}</>;
+  return <><div className="section-heading"><div><span className="eyebrow">Learning content</span><h1>{user.role === "admin" ? "Manage courses" : user.role === "teacher" ? "Your courses" : "Course catalogue"}</h1></div>{user.role === "admin" && <Button onClick={() => setModalOpen(true)}>+ Add course</Button>}</div><div className="card-grid">{visibleCourses.map((course) => <CourseCard key={course.id} course={course} enrollments={enrollments} onEnrollmentsChange={setEnrollments} />)}</div>{modalOpen && <CourseModal teachers={teachers} onClose={() => setModalOpen(false)} onSubmit={createCourse} />}</>;
 }
 
 export function AssignmentsPage() {

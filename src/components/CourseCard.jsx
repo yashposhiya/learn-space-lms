@@ -1,18 +1,16 @@
-import { useState } from "react";
 import { useAuth } from "../features/auth/AuthContext.jsx";
 import { read, write, STORAGE_KEYS } from "../services/storage.js";
 import { Button } from "./ui.jsx";
 
-export default function CourseCard({ course }) {
+export default function CourseCard({ course, enrollments, onEnrollmentsChange }) {
   const { user } = useAuth();
-  const [records, setRecords] = useState(() => read(STORAGE_KEYS.enrollments, []));
-  const enrollment = records.find((item) => item.userId === user.id && item.courseId === course.id);
+  const enrollment = enrollments.find((item) => item.userId === user.id && item.courseId === course.id);
   const updateProgress = () => {
     const next = enrollment
-      ? records.map((item) => item === enrollment ? { ...item, progress: Math.min(100, item.progress + 25) } : item)
-      : [...records, { userId: user.id, courseId: course.id, progress: 0 }];
+      ? enrollments.map((item) => item === enrollment ? { ...item, progress: Math.min(100, item.progress + 25) } : item)
+      : [...enrollments, { userId: user.id, courseId: course.id, progress: 0 }];
     write(STORAGE_KEYS.enrollments, next);
-    setRecords(next);
+    onEnrollmentsChange(next);
   };
   return <article className="course-card">
     <div className="course-art">{course.category === "Web" ? "◈" : course.category === "Design" ? "✦" : "◉"}</div>
